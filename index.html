@@ -5,231 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nguyễn Danh Thành Trung</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root {
-            --cyan: #00f2fe; 
-            --white: #fff;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-            --red: #ff4757;
-        }
-
+        :root { --cyan: #00f2fe; --white: #fff; --glass: rgba(255, 255, 255, 0.03); --border: rgba(255, 255, 255, 0.1); --red: #ff4757; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-
-        body { 
-            background: radial-gradient(circle at 50% 0%, #1e1b4b, #030712);
-            color: var(--white); height: 100vh; display: grid; place-items: center;
-            overflow: hidden; perspective: 1000px;
-        }
-
-        canvas { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        body { background: radial-gradient(circle at 50% 0%, #1e1b4b, #030712); color: var(--white); height: 100vh; display: grid; place-items: center; overflow: hidden; perspective: 1000px; }
+        canvas { position: fixed; inset: 0; z-index: -1; }
         
-        /* Hiệu ứng hiện hình cho toàn bộ Card */
-        .card {
-            width: 92%; max-width: 400px;
-            padding: 40px 20px;
-            background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--border); border-radius: 35px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center;
-            will-change: transform; transition: transform 0.2s ease-out;
-            animation: cardAppear 1s ease-out;
-            z-index: 10;
-        }
-
-        @keyframes cardAppear {
-            from { opacity: 0; transform: scale(0.9) translateY(30px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .avatar {
-            width: 80px; height: 80px; margin: 0 auto 20px;
-            background: #1e293b; border-radius: 50%; display: grid; place-items: center;
-            font-size: 1.8rem; color: var(--cyan); border: 1px solid var(--border);
-            animation: fadeInUp 0.8s ease backwards 0.2s;
-        }
-
-        h1 { 
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(1.1rem, 5.2vw, 1.4rem);
-            font-weight: 800; 
-            margin-bottom: 8px;
-            padding: 0 5px;
-            white-space: nowrap; 
-            display: block;
-            width: 100%;
-            cursor: default;
-            background: linear-gradient(
-                to right, 
-                #ffffff 20%, 
-                #00f2fe 40%, 
-                #ffffff 60%, 
-                #00f2fe 80%,
-                #ffffff 100%
-            );
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 4s linear infinite, fadeInUp 0.8s ease backwards 0.4s;
-            transition: all 0.4s ease;
-        }
-
+        .card { width: 92%; max-width: 400px; padding: 40px 20px; background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--border); border-radius: 35px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); text-align: center; animation: fadeInUp 1s ease-out; z-index: 10; transition: transform 0.2s ease-out; }
+        .avatar { width: 80px; height: 80px; margin: 0 auto 20px; background: #1e293b; border-radius: 50%; display: grid; place-items: center; font-size: 1.8rem; color: var(--cyan); border: 1px solid var(--border); }
+        
+        h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(1.1rem, 5.2vw, 1.4rem); font-weight: 800; margin-bottom: 8px; background: linear-gradient(to right, #fff 20%, var(--cyan) 40%, #fff 60%, var(--cyan) 80%, #fff 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: shine 4s linear infinite; }
         @keyframes shine { to { background-position: 200% center; } }
-
-        .tag { 
-            color: var(--cyan); font-size: 0.6rem; font-weight: 700; 
-            text-transform: uppercase; letter-spacing: 2px; 
-            margin-bottom: 30px; opacity: 0.7; 
-            animation: fadeInUp 0.8s ease backwards 0.6s;
-        }
-
+        
+        .tag { color: var(--cyan); font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; opacity: 0.7; }
         .links { display: grid; gap: 12px; }
-
-        .btn {
-            display: flex; align-items: center; padding: 14px 18px;
-            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-            border-radius: 18px; color: inherit; text-decoration: none;
-            font-size: 0.9rem; font-weight: 600; transition: 0.3s;
-            animation: fadeInUp 0.6s ease backwards;
-        }
-
-        .btn:nth-child(1) { animation-delay: 0.7s; }
-        .btn:nth-child(2) { animation-delay: 0.8s; }
-        .btn:nth-child(3) { animation-delay: 0.9s; }
-        .btn:nth-child(4) { animation-delay: 1.0s; }
-        .btn:nth-child(5) { animation-delay: 1.1s; }
-
-        .btn:hover { 
-            background: rgba(255,255,255,0.08); 
-            border-color: var(--cyan); 
-            transform: translateX(6px);
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
-        }
-
+        .btn { display: flex; align-items: center; padding: 14px 18px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 18px; color: inherit; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; opacity: 0; transform: translateY(15px); }
+        .btn:hover { background: rgba(255,255,255,0.08); border-color: var(--cyan); transform: translateX(6px); box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
         .btn i:first-child { width: 25px; font-size: 1.1rem; text-align: center; }
         .btn span { flex: 1; text-align: left; margin-left: 12px; }
-        .btn:hover span { color: var(--cyan); }
         .fa-chevron-right { font-size: 0.6rem; opacity: 0.2; }
 
-        /* Nút Donate cố định ở ĐẦU TRANG */
-        .btn-donate {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 18px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            z-index: 1000;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: fadeInDown 0.8s ease backwards 1.2s;
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); filter: blur(5px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
-        .btn-donate i {
-            color: var(--red);
-            animation: heartBeat 1.5s infinite;
-        }
-
-        @keyframes heartBeat {
-            0%, 70%, 100% { transform: scale(1); }
-            14% { transform: scale(1.3); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.3); }
-        }
-
-        .btn-donate:hover {
-            transform: translateY(3px) scale(1.05);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--red);
-            box-shadow: 0 0 20px rgba(255, 71, 87, 0.3);
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(15px); filter: blur(5px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
-        @media (max-width: 480px) { 
-            .card { padding: 35px 15px; width: 95%; } 
-            .btn-donate { top: 15px; right: 15px; padding: 8px 14px; font-size: 0.75rem; }
-        }
+        .btn-donate { position: fixed; top: 25px; right: 25px; display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 50px; color: #fff; text-decoration: none; font-weight: 600; font-size: 0.85rem; z-index: 1000; transition: 0.3s; }
+        .btn-donate i { color: var(--red); animation: heartBeat 1.5s infinite; }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes heartBeat { 0%, 70%, 100% { transform: scale(1); } 14%, 42% { transform: scale(1.3); } }
     </style>
 </head>
 <body>
-
     <canvas id="p"></canvas>
-
-    <!-- Nút Donate ở góc trên bên phải -->
-    <a href="https://ngdanhthanhtrung.github.io/Bank/" class="btn-donate" target="_blank">
-        <i class="fa-solid fa-heart"></i>
-        <span>Donate</span>
-    </a>
+    <a href="https://ngdanhthanhtrung.github.io/Bank/" class="btn-donate" target="_blank"><i class="fa-solid fa-heart"></i><span>Donate</span></a>
 
     <div class="card" id="c">
         <div class="avatar"><i class="fa-solid fa-user-ninja"></i></div>
         <h1>Nguyễn Danh Thành Trung</h1>
         <p class="tag">Digital Creator & Developer</p>
-        
-        <div class="links">
-            <a href="https://zalo.me/0981506719" class="btn" target="_blank"><i class="fa-solid fa-comment-dots" style="color:#0068FF"></i><span>Zalo</span><i class="fa-solid fa-chevron-right"></i></a>
-            <a href="https://instagram.com/ttrungisme.bi" class="btn" target="_blank"><i class="fab fa-instagram" style="color:#E1306C"></i><span>Instagram</span><i class="fa-solid fa-chevron-right"></i></a>
-            <a href="https://www.tiktok.com/@thanhtrungnguyendanh" class="btn" target="_blank"><i class="fab fa-tiktok"></i><span>TikTok</span><i class="fa-solid fa-chevron-right"></i></a>
-            <a href="https://t.me/NgDanhThanhTrung" class="btn" target="_blank"><i class="fab fa-telegram" style="color:#26A5E4"></i><span>Telegram</span><i class="fa-solid fa-chevron-right"></i></a>
-            <a href="https://ngdanhthanhtrung.github.io/MyWeb/" class="btn" target="_blank"><i class="fa-solid fa-rocket" style="color:var(--cyan)"></i><span>Shadowrocket</span><i class="fa-solid fa-chevron-right"></i></a>
-        </div>
+        <div class="links" id="link-container"></div>
     </div>
 
     <script>
+        const linkData = [
+            { name: 'Locket Gold', icon: 'fa-solid fa-heart', color: '#FFD700', url: 'https://ngdanhthanhtrung.github.io/locket/' },
+            { name: 'Zalo', icon: 'fa-solid fa-comment', color: '#0068FF', url: 'https://zalo.me/0981506719' },
+            { name: 'Instagram', icon: 'fa-brands fa-instagram', color: '#E1306C', url: 'https://instagram.com/ttrungisme.bi' },
+            { name: 'TikTok', icon: 'fa-brands fa-tiktok', color: '#fff', url: 'https://www.tiktok.com/@thanhtrungnguyendanh' },
+            { name: 'Telegram', icon: 'fa-brands fa-telegram', color: '#26A5E4', url: 'https://t.me/NgDanhThanhTrung' },
+            { name: 'Link Modules', icon: 'fa-solid fa-rocket', color: '#00f2fe', url: 'https://ngdanhthanhtrung.github.io/MyWeb/' }
+        ];
+
+        const container = document.getElementById('link-container');
+        linkData.forEach((link, i) => {
+            const a = document.createElement('a');
+            a.className = 'btn';
+            a.href = link.url;
+            a.target = '_blank';
+            a.style.animation = `fadeInUp 0.5s ease forwards ${0.4 + i * 0.1}s`;
+            a.innerHTML = `<i class="${link.icon}" style="color:${link.color}"></i><span>${link.name}</span><i class="fa-solid fa-chevron-right"></i>`;
+            container.appendChild(a);
+        });
+
         const canvas = document.getElementById('p'), ctx = canvas.getContext('2d'), card = document.getElementById('c');
         let dots = [];
-
         const init = () => {
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            dots = Array.from({length: 45}, () => ({
-                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4
-            }));
+            dots = Array.from({length: 45}, () => ({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4 }));
         }
-
         const anim = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "rgba(0, 242, 254, 0.2)";
-            dots.forEach(d => {
-                d.x += d.vx; d.y += d.vy;
-                if(d.x < 0 || d.x > canvas.width) d.vx *= -1;
-                if(d.y < 0 || d.y > canvas.height) d.vy *= -1;
-                ctx.beginPath(); ctx.arc(d.x, d.y, 1, 0, 7); ctx.fill();
-            });
+            ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle = "rgba(0,242,254,0.2)";
+            dots.forEach(d => { d.x+=d.vx; d.y+=d.vy; if(d.x<0||d.x>canvas.width) d.vx*=-1; if(d.y<0||d.y>canvas.height) d.vy*=-1; ctx.beginPath(); ctx.arc(d.x,d.y,1,0,7); ctx.fill(); });
             requestAnimationFrame(anim);
         }
-
-        window.onmousemove = e => {
-            let x = (window.innerWidth/2 - e.pageX)/25, y = (window.innerHeight/2 - e.pageY)/25;
-            card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
-        }
-        
-        window.onmouseleave = () => {
-            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-        }
-
-        window.onresize = init;
-        init(); anim();
+        window.onmousemove = e => { card.style.transform = `rotateY(${(window.innerWidth/2-e.pageX)/25}deg) rotateX(${-(window.innerHeight/2-e.pageY)/25}deg)`; }
+        window.onmouseleave = () => card.style.transform = `rotateY(0) rotateX(0)`;
+        window.onresize = init; init(); anim();
     </script>
 </body>
 </html>
-
