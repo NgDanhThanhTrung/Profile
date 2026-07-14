@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nguyễn Danh Thành Trung</title>
+    <title>Nguyễn Danh Thành Trung - Digital Creator & Developer</title>
+    
+    <meta name="description" content="Trang thông tin cá nhân của Nguyễn Danh Thành Trung - Digital Creator & Developer. Kết nối với tôi qua các mạng xã hội.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Nguyễn Danh Thành Trung">
+    <meta property="og:description" content="Digital Creator & Developer - Ghé thăm các liên kết mạng xã hội và dự án cá nhân của tôi.">
+    <meta property="og:type" content="profile">
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Nguyễn Danh Thành Trung",
+      "jobTitle": "Digital Creator & Developer",
+      "url": "https://ngdanhthanhtrung.github.io/",
+      "sameAs": [
+        "https://m.facebook.com/ThanhTrung53",
+        "https://instagram.com/ttrungisme.bi",
+        "https://www.tiktok.com/@thanhtrungnguyendanh",
+        "https://t.me/NgDanhThanhTrung"
+      ]
+    }
+    </script>
+
     <style>
         :root { --cyan: #00f2fe; --white: #fff; --glass: rgba(255, 255, 255, 0.03); --border: rgba(255, 255, 255, 0.1); --red: #ff4757; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
@@ -34,15 +58,26 @@
     </style>
 </head>
 <body>
-    <canvas id="p"></canvas>
-    <a href="https://ngdanhthanhtrung.github.io/Bank/" class="btn-donate" target="_blank"><i class="fa-solid fa-heart"></i><span>Donate</span></a>
+    <canvas id="p" aria-hidden="true"></canvas>
 
-    <div class="card" id="c">
-        <div class="avatar"><i class="fa-solid fa-user-ninja"></i></div>
-        <h1>Nguyễn Danh Thành Trung</h1>
-        <p class="tag">Digital Creator & Developer</p>
-        <div class="links" id="link-container"></div>
-    </div>
+    <header>
+        <a href="https://ngdanhthanhtrung.github.io/Bank/" class="btn-donate" target="_blank" rel="noopener noreferrer">
+            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+            <span>Donate</span>
+        </a>
+    </header>
+
+    <main class="card" id="c">
+        <header>
+            <span class="avatar" aria-hidden="true">
+                <i class="fa-solid fa-user-ninja"></i>
+            </span>
+            <h1>Nguyễn Danh Thành Trung</h1>
+            <p class="tag">Digital Creator & Developer</p>
+        </header>
+
+        <nav class="links" id="link-container" aria-label="Social and Project Links"></nav>
+    </main>
 
     <script>
         const linkData = [
@@ -60,11 +95,13 @@
             a.className = 'btn';
             a.href = link.url;
             a.target = '_blank';
+            a.rel = 'noopener noreferrer'; // Tối ưu bảo mật và SEO link out
             a.style.animation = `fadeInUp 0.5s ease forwards ${0.4 + i * 0.1}s`;
-            a.innerHTML = `<i class="${link.icon}" style="color:${link.color}"></i><span>${link.name}</span><i class="fa-solid fa-chevron-right"></i>`;
+            a.innerHTML = `<i class="${link.icon}" style="color:${link.color}" aria-hidden="true"></i><span>${link.name}</span><i class="fa-solid fa-chevron-right" aria-hidden="true"></i>`;
             container.appendChild(a);
         });
 
+        // Background Particles Canvas
         const canvas = document.getElementById('p'), ctx = canvas.getContext('2d');
         let dots = [];
         const init = () => {
